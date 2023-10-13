@@ -24,3 +24,75 @@ public class ShuffleArray {
     }
 }
 
+
+#2.Enter a Roman Number as input and convert it to an integer.
+
+public class RomanToInteger {
+    public static int romanToInt(String s) {
+        // Create a dictionary for Roman numerals
+        HashMap<Character, Integer> romanDict = new HashMap<>();
+        romanDict.put('I', 1);
+        romanDict.put('V', 5);
+        romanDict.put('X', 10);
+        romanDict.put('L', 50);
+        romanDict.put('C', 100);
+        romanDict.put('D', 500);
+        romanDict.put('M', 1000);
+
+        int result = 0;
+        int prevValue = 0;
+
+        for (int i = s.length() - 1; i >= 0; i--) {
+            int value = romanDict.get(s.charAt(i));
+            if (value < prevValue) {
+                result -= value;
+            } else {
+                result += value;
+            }
+            prevValue = value;
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        // Get user input and convert it to an integer
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a Roman numeral: ");
+        String romanNumeral = scanner.nextLine();
+        int integer = romanToInt(romanNumeral);
+        System.out.println("The integer value is: " + integer);
+    }
+}
+
+
+
+#3.Check if the input is pangram or not. (A pangram is a sentence that contains all the alphabets from A to Z)
+
+public class PangramCheck {
+    public static boolean isPangram(String sentence) {
+        sentence = sentence.toLowerCase();
+        Set<Character> alphabetSet = new HashSet<>();
+        for (char c = 'a'; c <= 'z'; c++) {
+            alphabetSet.add(c);
+        }
+        for (char c : sentence.toCharArray()) {
+            alphabetSet.remove(c);
+        }
+        return alphabetSet.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        // Get user input and check if it's a pangram
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a sentence: ");
+        String input = scanner.nextLine();
+        if (isPangram(input)) {
+            System.out.println("The input is a pangram.");
+        } else {
+            System.out.println("The input is not a pangram.");
+        }
+    }
+}
+
+
