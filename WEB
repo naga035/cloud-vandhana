@@ -123,3 +123,219 @@ input[type=button].clear:hover {
 </div>
 </body>
 </html>
+
+
+
+
+#2. Create a survey form with Fields; First Name, Last Name, Date of Birth, Country
+(dropdown), Gender (checkbox), Profession, email, and mobile number. All the input
+fields are necessary to submit the form. Create two buttons Submit and Reset. Reset will
+reset the form while clicking on submit, first, it will check all the fields and necessary
+validations and then a popup will appear displaying all the selected values with labels in
+front of it. On closing the popup, the form should reset all the values.
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Form</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #000;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 300px;
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        .popup-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Survey Form</h1>
+
+    <form action="/submit" method="post" id="surveyForm">
+        <input type="text" name="first_name" placeholder="First Name" required>
+        <input type="text" name="last_name" placeholder="Last Name" required>
+        <input type="date" name="date_of_birth" placeholder="Date of Birth" required>
+        <select name="country" required>
+            <option value="">Select Country</option>
+            <option value="India">India</option>
+            <option value="USA">USA</option>
+            <option value="UK">UK</option>
+        </select>
+        <input type="checkbox" name="gender" value="male"> Male
+        <input type="checkbox" name="gender" value="Female"> Female
+        <input type="text" name="profession" placeholder="Profession" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="mobile_number" placeholder="Mobile Number" required>
+        did you satified with the company
+        <input type="checkbox" name="statisfied" value="opinion">statisfied
+        <input type="checkbox" name="unstatisfied" value="opinion">unstatisfied<br>
+        <button type="submit" id="submitButton">Submit</button>
+        <button type="reset">Reset</button>
+    </form>
+
+    <div class="popup">
+        <div class="popup-content">
+            <h2 class="popup-title">Survey Results</h2>
+            <ul id="surveyResults"></ul>
+            <span class="popup-close">X</span>
+        </div>
+    </div>
+
+    <script>
+        // Get the form elements
+        const firstName = document.querySelector('input[name="first_name"]');
+        const lastName = document.querySelector('input[name="last_name"]');
+        const dateOfBirth = document.querySelector('input[name="date_of_birth"]');
+        const country = document.querySelector('select[name="country"]');
+        const gender = document.querySelector('input[name="gender"]');
+        const profession = document.querySelector('input[name="profession"]');
+        const email = document.querySelector('input[name="email"]');
+        const mobileNumber = document.querySelector('input[name="mobile_number"]');
+                // Get the submit button
+                const submitButton = document.querySelector('#submitButton');
+
+                // Add an event listener to the submit button to validate the form and display the popup
+                submitButton.addEventListener('click', function(event) {
+                    // Prevent the form from submitting
+                    event.preventDefault();
+        
+                    // Validate the form
+                    if (!firstName.value) {
+                        firstName.classList.add('error');
+                        return;
+                    } else {
+                        firstName.classList.remove('error');
+                    }
+        
+                    if (!lastName.value) {
+                        lastName.classList.add('error');
+                        return;
+                    } else {
+                        lastName.classList.remove('error');
+                    }
+        
+                    if (!dateOfBirth.value) {
+                        dateOfBirth.classList.add('error');
+                        return;
+                    } else {
+                        dateOfBirth.classList.remove('error');
+                    }
+        
+                    if (!country.value) {
+                        country.classList.add('error');
+                        return;
+                    } else {
+                        country.classList.remove('error');
+                    }
+        
+                    if (!profession.value) {
+                        profession.classList.add('error');
+                        return;
+                    } else {
+                        profession.classList.remove('error');
+                    }
+        
+                    if (!email.value) {
+                        email.classList.add('error');
+                        return;
+                    } else {
+                        email.classList.remove('error');
+                    }
+        
+                    if (!mobileNumber.value) {
+                        mobileNumber.classList.add('error');
+                        return;
+                    } else {
+                        mobileNumber.classList.remove('error');
+                    }
+        
+                    // Display the popup
+                    const popup = document.querySelector('.popup');
+                    popup.style.display = 'block';
+        
+                    // Populate the popup with the survey results
+                    const surveyResults = document.querySelector('#surveyResults');
+                    surveyResults.innerHTML = '';
+        
+                    surveyResults.innerHTML += `<li>First Name: ${firstName.value}</li>`;
+                    surveyResults.innerHTML += `<li>Last Name: ${lastName.value}</li>`;
+                    surveyResults.innerHTML += `<li>Date of Birth: ${dateOfBirth.value}</li>`;
+                    surveyResults.innerHTML += `<li>Country: ${country.options[country.selectedIndex].text}</li>`;
+                    surveyResults.innerHTML += `<li>Profession: ${profession.value}</li>`;
+                    surveyResults.innerHTML += `<li>Email: ${email.value}</li>`;
+                    surveyResults.innerHTML += `<li>Mobile Number: ${mobileNumber.value}</li>`;
+                });
+        
+                // Get the popup close button
+                const popupCloseButton = document.querySelector('.popup-close');
+        
+                // Add an event listener to the popup close button to hide the popup and reset the form
+                popupCloseButton.addEventListener('click', function() {
+                    const popup = document.querySelector('.popup');
+                    popup.style.display = 'none';
+        
+                    // Reset the form
+                    document.querySelector('#surveyForm').reset();
+                });
+            </script>
+        </body>
+        </html>
+        
+
