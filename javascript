@@ -1,29 +1,45 @@
-##1.Take a sentence as an input and reverse every word in that sentence. Example - This is a sunny day > shiT si a ynnus yad.
+##1. Take a sentence as an input and reverse every word in that sentence. Example - This is a sunny day > shiT si a ynnus yad.
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reverse Words in a Sentence</title>
-</head>
-<body>
-    <input type="text" id="inputSentence" placeholder="Enter a sentence">
-    <button onclick="reverseWords()">Reverse Words</button>
-    <p id="outputSentence"></p>
 
-    <script>
-        function reverseWords() {
-            const inputSentence = document.getElementById("inputSentence").value;
-            const words = inputSentence.split(" ");
-            const reversedWords = words.map(word => reverseWord(word));
-            const outputSentence = reversedWords.join(" ");
-            document.getElementById("outputSentence").textContent = outputSentence;
-        }
+function reverseWords(sentence) {
+  // Split the sentence into words
+  const words = sentence.split(' ');
 
-        function reverseWord(word) {
-            return word.split("").reverse().join("");
-        }
-    </script>
-</body>
-</html>
+  // Reverse each word and reassemble the sentence
+  const reversedWords = words.map(word => {
+    return word.split('').reverse().join('');
+  });
+
+  // Join the reversed words into a sentence
+  const reversedSentence = reversedWords.join(' ');
+
+  return reversedSentence;
+}
+
+// Input sentence
+const inputSentence = "This is a sunny day";
+
+// Call the function to reverse the words
+const reversedSentence = reverseWords(inputSentence);
+
+// Print the reversed sentence
+console.log(reversedSentence);
+
+
+
+#2. Perform sorting of an array in descending order.
+
+
+
+const arr = [5, 2, 9, 1, 5, 6];
+
+// Sorting the array in descending order
+arr.sort(function(a, b) {
+  return b - a;
+});
+
+console.log(arr);
+
+
+
+
